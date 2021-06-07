@@ -38,8 +38,8 @@ function displayTemperature ( response ) {
     dateElement.innerHTML = formatDate(response.data.dt*1000);
 }
 
-
 let apiKey = "e7c5e1dd39ac83a06eb5ffdabc93a484";
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=Switzerland&appid=${apiKey}&units=metric`;
+let city = "Switzerland";
+let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
 axios.get( apiUrl ).then( displayTemperature );
