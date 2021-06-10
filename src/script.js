@@ -42,8 +42,20 @@ function displayTemperature ( response ) {
     iconElement.setAttribute( "alt", response.data.weather[ 0 ].description );
 }
 
+function search ( city ) {
     let apiKey = "e7c5e1dd39ac83a06eb5ffdabc93a484";
-    let city = "Switzerland";
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${ city }&appid=${ apiKey }&units=metric`;
     axios.get( apiUrl ).then( displayTemperature );
+}
+
+function handelSubmit ( event ) {
+    event.preventDefault();
+    let cityInputElement = document.querySelector( "#city-input" );
+    search( "cityInputElement.value");
+}
+
+search( "Switzerland" );
+
+let form = document.querySelector( "#search-form" );
+form.addEventListener( "submit", handelSubmit);
+    
