@@ -48,14 +48,15 @@ function search ( city ) {
     axios.get( apiUrl ).then( displayTemperature );
 }
 
-function handelSubmit ( event ) {
+function handleSubmit ( event ) {
     event.preventDefault();
     let cityInputElement = document.querySelector( "#city-input" );
     search( "cityInputElement.value");
 }
 
-search( "Switzerland" );
+
 
 let form = document.querySelector( "#search-form" );
-form.addEventListener( "submit", handelSubmit);
-    
+form.addEventListener( "submit", handleSubmit);
+
+search( "Switzerland" );
