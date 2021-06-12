@@ -18,14 +18,17 @@ function formatDate(timestamp) {
         "Thursday",
         "Friday",
         "Saturday" ];
+    
     let day = days[date.getDay()];
     return `${day} ${hours}: ${minutes}`;
 }
 
-function displayForecast() {
+function displayForecast ( response )
+{
+    console.log( response.data.daily );
     let forecastElement = document.querySelector( "#forecast" );
+    let days = [ "Fri", "Sat", "Sun", "Mon", ];
     let forecastHTML = `<div class="row">`;
-    let days = [ "Fri", "Sat", "Sun","Mon", ];
     days.forEach( function ( day )
     {
         
@@ -52,6 +55,16 @@ function displayForecast() {
     
     forecastHTML = forecastHTML + `</div>`;
     forecastElement.innerHTML = forecastHTML;
+    console.log( forecastHTML );
+}
+
+function getForecast ( coordinates ) {
+    console.log( coordinates );
+    let apiKey = "e7c5e1dd39ac83a06eb5ffdabc93a484";
+    let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${ coordinates.lat }&lon=${ coordinates.lon }&appid=${ apiKey }&units=metric`;
+    
+    axios.get( apiUrl ).then( displayForecast);
+
 }
 
 function displayTemperature ( response ) {
@@ -74,6 +87,8 @@ function displayTemperature ( response ) {
     iconElement.setAttribute(
         "src", `http://openweathermap.org/img/wn/${ response.data.weather[ 0 ].icon }@2x.png` );
     iconElement.setAttribute( "alt", response.data.weather[ 0 ].description );
+
+    getForecast( response.data.coordinates );
 }
 
 function search ( city ) {
@@ -85,7 +100,7 @@ function search ( city ) {
 function handleSubmit ( event ) {
     event.preventDefault();
     let cityInputElement = document.querySelector( "#city-input" );
-    search( "cityInputElement.value");
+    search( cityInputElement.value);
 }
 
 
@@ -94,4 +109,3 @@ let form = document.querySelector( "#search-form" );
 form.addEventListener( "submit", handleSubmit);
 
 search( "Switzerland" );
-displayForecast();
